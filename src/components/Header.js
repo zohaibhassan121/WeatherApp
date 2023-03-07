@@ -1,9 +1,41 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { BsXLg, BsJustify, BsFillCloudSunFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { UserContext } from '../App'
 
 export default function NavBar() {
     const [navbar, setNavbar] = useState(false);
+    const { state, dispatch } = useContext(UserContext);
+
+    const RenderMenu = () => {
+        if (state) {
+            return (
+                <>
+                    <li className="text-gray-600 hover:text-cyan-500 font ">
+                        <Link to="/weather">Weather</Link>
+                    </li>
+                   
+                    <li className="text-gray-600 hover:text-cyan-500 font">
+                        <Link to="/logout"> Logout</Link>
+                    </li>
+
+
+                </>
+            )
+        } else {
+            return (
+                <>
+                            <li className="text-gray-600 hover:text-cyan-500 font">
+                                <Link to="/signup">Signe up</Link>
+                            </li>
+                            <li className="text-gray-600 hover:text-cyan-500 font">
+                                <Link to="/login">Login</Link>
+                            </li>
+                </>
+            )
+        }
+    }
+
 
     return (
         <nav className="w-full bg-slate-300 shadow opacity-50 py-3">
@@ -35,19 +67,7 @@ export default function NavBar() {
                             }`}
                     >
                         <ul className="items-center uppercase md:font-extrabold font-serif justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                            <li className="text-gray-600 hover:text-cyan-500 font ">
-                                <Link to="/weather">Weather</Link>
-                            </li>
-                            <li className="text-gray-600 hover:text-cyan-500 font">
-                                <Link to="/signup">Signe up</Link>
-                            </li>
-                            <li className="text-gray-600 hover:text-cyan-500 font">
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li className="text-gray-600 hover:text-cyan-500 font">
-                               <Link to="/logout"> Logout</Link>
-                            </li>
-                           
+                            <RenderMenu />
                         </ul>
                     </div>
                 </div>

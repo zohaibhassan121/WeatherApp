@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import bgimg from '../assert/images/main.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+
+import { UserContext } from '../App'
+
+
+
 export default function Login() {
+  const {state, dispatch} = useContext(UserContext);
 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -31,7 +37,7 @@ export default function Login() {
     } else if(res.status === 400){
       console.log(toast.error(" Not found"))
     } else {
-      //  window.alert(" login secusss")
+      dispatch({type: 'USER', payload: true})
        toast.success("welcome !");
       navigate('/weather')
     }
